@@ -8,7 +8,18 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+//app.use(cors());
+const allowedOrigins = [
+  'http://localhost:3000',                        // your local CRA dev server
+  'https://email-verification-9wk8.onrender.com', // your deployed front-end (if you ever host it there)
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization']
+}));
 
 // Request logging middleware
 app.use(morgan('combined'));
